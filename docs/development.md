@@ -10,22 +10,22 @@ nvm install v4
 
 ## Fork and Download Repositories
 
-To develop htmlcoincore-node:
+To develop agricoincore-node:
 
 ```bash
 cd ~
-git clone git@github.com:<yourusername>/htmlcoincore-node.git
-git clone git@github.com:<yourusername>/htmlcoin-lib.git
+git clone git@github.com:<yourusername>/agricoincore-node.git
+git clone git@github.com:<yourusername>/agricoin-lib.git
 ```
 
-To develop htmlcoin or to compile from source:
+To develop agricoin or to compile from source:
 
 ```bash
-git clone git@github.com:<yourusername>/htmlcoin.git
+git clone git@github.com:<yourusername>/agricoin.git
 git fetch origin <branchname>:<branchname>
 git checkout <branchname>
 ```
-**Note**: See htmlcoin documentation for building htmlcoin on your platform.
+**Note**: See agricoin documentation for building agricoin on your platform.
 
 
 ## Install Development Dependencies
@@ -51,22 +51,22 @@ npm install
 cd ../bitcore-node
 npm install
 ```
-**Note**: If you get a message about not being able to download htmlcoin distribution, you'll need to compile htmlcoind from source, and setup your configuration to use that version.
+**Note**: If you get a message about not being able to download agricoin distribution, you'll need to compile agricoind from source, and setup your configuration to use that version.
 
 
-We now will setup symlinks in `htmlcoincore-node` *(repeat this for any other modules you're planning on developing)*:
+We now will setup symlinks in `agricoincore-node` *(repeat this for any other modules you're planning on developing)*:
 ```bash
 cd node_modules
-rm -rf htmlcoin-lib
-ln -s ~/htmlcoin-lib
-rm -rf htmlcoind-rpc
-ln -s ~/htmlcoind-rpc
+rm -rf agricoin-lib
+ln -s ~/agricoin-lib
+rm -rf agricoind-rpc
+ln -s ~/agricoind-rpc
 ```
 
-And if you're compiling or developing htmlcoin:
+And if you're compiling or developing agricoin:
 ```bash
 cd ../bin
-ln -sf ~/htmlcoin/src/htmlcoind
+ln -sf ~/agricoin/src/agricoind
 ```
 
 ## Run Tests
@@ -78,19 +78,19 @@ npm install mocha -g
 
 To run all test suites:
 ```bash
-cd htmlcoincore-node
+cd agricoincore-node
 npm run regtest
 npm run test
 ```
 
 To run a specific unit test in watch mode:
 ```bash
-mocha -w -R spec test/services/htmlcoind.unit.js
+mocha -w -R spec test/services/agricoind.unit.js
 ```
 
 To run a specific regtest:
 ```bash
-mocha -R spec regtest/htmlcoind.js
+mocha -R spec regtest/agricoind.js
 ```
 
 ## Running a Development Node
@@ -102,46 +102,46 @@ cd ~
 mkdir devnode
 cd devnode
 mkdir node_modules
-touch htmlcoincore-node.json
+touch agricoincore-node.json
 touch package.json
 ```
 
-Edit `htmlcoincore-node.json` with something similar to:
+Edit `agricoincore-node.json` with something similar to:
 ```json
 {
   "network": "livenet",
   "port": 3001,
   "services": [
-    "htmlcoind",
+    "agricoind",
     "web",
-    "htmlcoin-api",
+    "agricoin-api",
     "insight-ui",
     "<additional_service>"
   ],
   "servicesConfig": {
-    "htmlcoind": {
+    "agricoind": {
       "spawn": {
-        "datadir": "/home/<youruser>/.htmlcoin",
-        "exec": "/home/<youruser>/htmlcoin/src/htmlcoind"
+        "datadir": "/home/<youruser>/.agricoin",
+        "exec": "/home/<youruser>/agricoin/src/agricoind"
       }
     }
   }
 }
 ```
 
-**Note**: To install services [htmlcoin-api](https://github.com/HTMLCOIN/htmlcoin-api) and [htmlcoin-explorer](https://github.com/HTMLCOIN/htmlcoin-explorer) you'll need to clone the repositories locally.
+**Note**: To install services [agricoin-api](https://github.com/Agricoin/agricoin-api) and [agricoin-explorer](https://github.com/Agricoin/agricoin-explorer) you'll need to clone the repositories locally.
 
 Setup symlinks for all of the services and dependencies:
 
 ```bash
 cd node_modules
-ln -s ~/htmlcoin-lib
-ln -s ~/htmlcoincore-node
-ln -s ~/htmlcoin-api
-ln -s ~/htmlcoin-explorer
+ln -s ~/agricoin-lib
+ln -s ~/agricoincore-node
+ln -s ~/agricoin-api
+ln -s ~/agricoin-explorer
 ```
 
-Make sure that the `<datadir>/htmlcoin.conf` has the necessary settings, for example:
+Make sure that the `<datadir>/agricoin.conf` has the necessary settings, for example:
 ```
 server=1
 whitelist=127.0.0.1
@@ -163,5 +163,5 @@ logevents=1
 
 From within the `devnode` directory with the configuration file, start the node:
 ```bash
-../htmlcoincore-node/bin/htmlcoincore-node start
+../agricoincore-node/bin/agricoincore-node start
 ```

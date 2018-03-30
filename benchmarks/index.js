@@ -26,7 +26,7 @@ var fixtureData = {
   ]
 };
 
-var htmlcoind = require('../').services.Bitcoin({
+var agricoind = require('../').services.Bitcoin({
   node: {
     datadir: process.env.HOME + '/.bitcoin',
     network: {
@@ -35,18 +35,18 @@ var htmlcoind = require('../').services.Bitcoin({
   }
 });
 
-htmlcoind.on('error', function(err) {
+agricoind.on('error', function(err) {
   console.error(err.message);
 });
 
-htmlcoind.start(function(err) {
+agricoind.start(function(err) {
   if (err) {
     throw err;
   }
   console.log('Bitcoin Core started');
 });
 
-htmlcoind.on('ready', function() {
+agricoind.on('ready', function() {
 
   console.log('Bitcoin Core ready');
 
@@ -69,7 +69,7 @@ htmlcoind.on('ready', function() {
           c = 0;
         }
         var hash = fixtureData.blockHashes[c];
-          htmlcoind.getBlock(hash, function(err, block) {
+          agricoind.getBlock(hash, function(err, block) {
           if (err) {
             throw err;
           }
@@ -97,7 +97,7 @@ htmlcoind.on('ready', function() {
           c = 0;
         }
         var hash = fixtureData.txHashes[c];
-          htmlcoind.getTransaction(hash, true, function(err, tx) {
+          agricoind.getTransaction(hash, true, function(err, tx) {
           if (err) {
             throw err;
           }
@@ -122,22 +122,22 @@ htmlcoind.on('ready', function() {
 
       var suite = new benchmark.Suite();
 
-      suite.add('htmlcoind getblock (native)', bitcoindGetBlockNative, {
+      suite.add('agricoind getblock (native)', bitcoindGetBlockNative, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('htmlcoind getblock (json rpc)', bitcoindGetBlockJsonRpc, {
+      suite.add('agricoind getblock (json rpc)', bitcoindGetBlockJsonRpc, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('htmlcoind gettransaction (native)', bitcoinGetTransactionNative, {
+      suite.add('agricoind gettransaction (native)', bitcoinGetTransactionNative, {
         defer: true,
         maxTime: maxTime
       });
 
-      suite.add('htmlcoind gettransaction (json rpc)', bitcoinGetTransactionJsonRpc, {
+      suite.add('agricoind gettransaction (json rpc)', bitcoinGetTransactionJsonRpc, {
         defer: true,
         maxTime: maxTime
       });
@@ -158,7 +158,7 @@ htmlcoind.on('ready', function() {
       throw err;
     }
     console.log('Finished');
-      htmlcoind.stop(function(err) {
+      agricoind.stop(function(err) {
       if (err) {
         console.error('Fail to stop services: ' + err);
         process.exit(1);

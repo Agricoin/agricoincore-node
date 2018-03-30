@@ -1,16 +1,16 @@
 # Services
-htmlcoincore Node has a service module system that can start up additional services that can include additional:
+agricoincore Node has a service module system that can start up additional services that can include additional:
 - Blockchain indexes (e.g. querying balances for addresses)
 - API methods
 - HTTP routes
 - Event types to publish and subscribe
 
-The `htmlcoincore-node.json` file describes which services will load for a node:
+The `agricoincore-node.json` file describes which services will load for a node:
 
 ```json
 {
   "services": [
-    "htmlcoind", "web"
+    "agricoind", "web"
   ]
 }
 ```
@@ -20,36 +20,36 @@ Services correspond with a Node.js module as described in 'package.json', for ex
 ```json
 {
   "dependencies": {
-    "htmlcoin-lib": "^0.0.1",
-    "htmlcoincore-node": "^0.0.1",
-    "htmlcoin-api": "^0.0.1"
+    "agricoin-lib": "^0.0.1",
+    "agricoincore-node": "^0.0.1",
+    "agricoin-api": "^0.0.1"
   }
 }
 ```
 
-_Note:_ If you already have a htmlcoincore-node database, and you want to query data from previous blocks in the blockchain, you will need to reindex. Reindexing right now means deleting your htmlcoincore-node database and resyncing.
+_Note:_ If you already have a agricoincore-node database, and you want to query data from previous blocks in the blockchain, you will need to reindex. Reindexing right now means deleting your agricoincore-node database and resyncing.
 
 ## Using Services Programmatically
 If, instead, you would like to run a custom node, you can include services by including them in your configuration object when initializing a new node.
 
 ```js
-//Require htmlcoincore
-var htmlcoincore = require('htmlcoincore-node');
+//Require agricoincore
+var agricoincore = require('agricoincore-node');
 
 //Services
-var HTMLCOIN = htmlcoincore.services.HTMLCOIN;
-var Web = htmlcoincore.services.Web;
+var Agricoin = agricoincore.services.Agricoin;
+var Web = agricoincore.services.Web;
 
-var myNode = new htmlcoincore.Node({
+var myNode = new agricoincore.Node({
   network: 'regtest',
   services: [
     {
-      name: 'htmlcoind',
-      module: HTMLCOIN,
+      name: 'agricoind',
+      module: Agricoin,
       config: {
         spawn: {
-          datadir: '/home/<username>/.htmlcoin',
-          exec: '/home/<username>/htmlcoincore-node/bin/htmlcoind'
+          datadir: '/home/<username>/.agricoin',
+          exec: '/home/<username>/agricoincore-node/bin/agricoind'
         }
       }
     },
@@ -67,7 +67,7 @@ var myNode = new htmlcoincore.Node({
 Now that you've loaded your services you can access them via `myNode.services.<service-name>.<method-name>`. For example if you wanted to check the balance of an address, you could access the address service like so.
 
 ```js
-myNode.services.htmlcoind.getAddressBalance('1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v', false, function(err, total) {
+myNode.services.agricoind.getAddressBalance('1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v', false, function(err, total) {
   console.log(total.balance); //Satoshi amount of this address
 });
 ```
@@ -82,7 +82,7 @@ A new service can be created by inheriting from `Node.Service` and implementing 
 - `Service.prototype.getPublishEvents()` - Describes which events can be subscribed to for this service, useful to subscribe to events over the included web socket API.
 - `Service.prototype.setupRoutes()` - A service can extend HTTP routes on an express application by implementing this method.
 
-The `package.json` for the service module can either export the `Node.Service` directly, or specify a specific module to load by including `"htmlcoincoreNode": "lib/htmlcoincore-node.js"`.
+The `package.json` for the service module can either export the `Node.Service` directly, or specify a specific module to load by including `"agricoincoreNode": "lib/agricoincore-node.js"`.
 
 Please take a look at some of the existing services for implementation specifics.
 

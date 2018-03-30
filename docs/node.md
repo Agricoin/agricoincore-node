@@ -14,17 +14,17 @@ A node represents a collection of services that are loaded together. For more in
 
 ```js
 
-var index = require('htmlcoincore-node');
-var HTMLCOIN = index.services.HTMLCOIN;
+var index = require('agricoincore-node');
+var Agricoin = index.services.Agricoin;
 var Node = index.Node;
 
 var configuration = {
-  datadir: '/home/user/.htmlcoin',
+  datadir: '/home/user/.agricoin',
   network: 'testnet',
   services: [
     {
-      name: 'htmlcoind',
-      module: HTMLCOIN,
+      name: 'agricoind',
+      module: Agricoin,
       config: {}
     }
   ]
@@ -37,7 +37,7 @@ node.start(function() {
 });
 
 node.on('ready', function() {
-  console.log('HTMLCOINcoin Node Ready');
+  console.log('Agricoincoin Node Ready');
 });
 
 node.on('error', function(err) {

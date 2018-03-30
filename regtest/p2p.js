@@ -10,18 +10,18 @@ var p2p = require('bitcore-p2p');
 var Peer = p2p.Peer;
 var Messages = p2p.Messages;
 var chai = require('chai');
-var bitcore = require('htmlcoin-lib');
+var bitcore = require('agricoin-lib');
 var Transaction = bitcore.Transaction;
 var BN = bitcore.crypto.BN;
 var async = require('async');
 var rimraf = require('rimraf');
-var htmlcoind;
+var agricoind;
 
 /* jshint unused: false */
 var should = chai.should();
 var assert = chai.assert;
 var sinon = require('sinon');
-var BitcoinRPC = require('htmlcoind-rpc');
+var BitcoinRPC = require('agricoind-rpc');
 var transactionData = [];
 var blockHashes = [];
 var txs = [];
@@ -49,23 +49,23 @@ describe('P2P Functionality', function() {
         throw err;
       }
 
-      htmlcoind = require('../').services.Bitcoin({
+      agricoind = require('../').services.Bitcoin({
         spawn: {
           datadir: datadir,
-          exec: path.resolve(__dirname, '../bin/htmlcoind')
+          exec: path.resolve(__dirname, '../bin/agricoind')
         },
         node: {
           network: bitcore.Networks.testnet
         }
       });
 
-      htmlcoind.on('error', function(err) {
+      agricoind.on('error', function(err) {
         log.error('error="%s"', err.message);
       });
 
       log.info('Waiting for Bitcoin Core to initialize...');
 
-      htmlcoind.start(function(err) {
+      agricoind.start(function(err) {
         if (err) {
           throw err;
         }
@@ -163,8 +163,8 @@ describe('P2P Functionality', function() {
     this.timeout(20000);
     peer.on('disconnect', function() {
       log.info('Peer disconnected');
-      htmlcoind.node.stopping = true;
-      htmlcoind.stop(function(err, result) {
+      agricoind.node.stopping = true;
+      agricoind.stop(function(err, result) {
         done();
       });
     });
@@ -176,7 +176,7 @@ describe('P2P Functionality', function() {
 
     var usedTxs = {};
 
-    htmlcoind.on('tx', function(buffer) {
+    agricoind.on('tx', function(buffer) {
       var txFromResult = new Transaction().fromBuffer(buffer);
       var tx = usedTxs[txFromResult.id];
       should.exist(tx);

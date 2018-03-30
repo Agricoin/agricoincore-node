@@ -1,19 +1,19 @@
 {
-  "name": "htmlcoincore-node",
-  "description": "Full node with extended capabilities using HTMLCOINCORE and HTMLCOIN Core",
-  "author": "HTMLCOIN <support@htmlcoin.com>",
+  "name": "agricoincore-node",
+  "description": "Full node with extended capabilities using AgricoinCORE and Agricoin Core",
+  "author": "Agricoin <support@agricoin.com>",
   "version": "0.0.6",
   "main": "./index.js",
-  "repository": "https://github.com/HTMLCOIN/htmlcoincore-node.git",
-  "homepage": "https://github.com/HTMLCOIN/htmlcoincore-node",
+  "repository": "https://github.com/Agricoin/agricoincore-node.git",
+  "homepage": "https://github.com/Agricoin/agricoincore-node",
   "bugs": {
-    "url": "https://github.com/HTMLCOIN/htmlcoincore-node/issues"
+    "url": "https://github.com/Agricoin/agricoincore-node/issues"
   },
   "contributors": [
 
   ],
   "bin": {
-    "htmlcoincore-node": "./bin/htmlcoincore-node"
+    "agricoincore-node": "./bin/agricoincore-node"
   },
   "scripts": {
     "test": "mocha -R spec --recursive",
@@ -23,12 +23,12 @@
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "tags": [
-    "htmlcoin"
+    "agricoin"
   ],
   "dependencies": {
     "async": "^1.3.0",
-    "htmlcoind-rpc": "git://github.com/HTMLCOIN/htmlcoind-rpc.git",
-    "htmlcoin-lib": "git://github.com/HTMLCOIN/htmlcoin-lib.git#master",
+    "agricoind-rpc": "git://github.com/Agricoin/agricoind-rpc.git",
+    "agricoin-lib": "git://github.com/Agricoin/agricoin-lib.git#master",
     "bitcore-lib": "^0.13.13",
     "body-parser": "^1.13.3",
     "colors": "^1.1.2",
